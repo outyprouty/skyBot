@@ -1,5 +1,11 @@
 # skyBot
 
+
+
+# Requirements
+discord
+xmltodict (or write your own parser)
+
 # Changelog
  1. Log in to discord website
  2. Navigate to applications page
