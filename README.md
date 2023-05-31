@@ -1,12 +1,17 @@
 # skyBot
 
-
+# dotenv file
+Any implementation should store the following in a .env file colocated with runtime.
+- the Discord bot token as "discordToken" 
+- the Tomorrow API Key as "tomorrowAPIKey"
 
 # Requirements
 discord
 xmltodict (or write your own parser)
+python-dotenv (for dotenv)
 
-# Changelog
+# Non-git changelog
+Make bot
  1. Log in to discord website
  2. Navigate to applications page
  3. Click "New Application"
@@ -21,3 +26,5 @@ python3 -c "import discord"
 [proutyr1@/Users/proutyr1/Documents/git/skyBot]
 ```
 9. Bot needed Privileged Gateway Intents in developer settings online
+
+
