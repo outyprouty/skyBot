@@ -5,6 +5,10 @@ Any implementation should store the following in a .env file colocated with runt
 - the Discord bot token as "discordToken" 
 - the Tomorrow API Key as "tomorrowAPIKey"
 
+# tomorrow API
+Needed to get API token
+Setup a location UMBC Observatory and grabbed ID for the queries
+
 # Requirements
 discord
 xmltodict (or write your own parser)
