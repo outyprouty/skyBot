@@ -7,17 +7,20 @@ import pytz
 import sys
 
 
-
-
+dotenv.load_dotenv()
 
 from NOAA import generateNOAATuples
 
 nccTups = generateNOAATuples()
 
-
-
 #######
 
+from tomorrow import generateSunMoonTuples, generateCloudCoverTuples
+
+sunsets, sunrises, moonsets, moonrises = generateSunMoonTuples()
+
+ccTups = generateCloudCoverTuples()
+print(ccTups)
 
 #Mush all other info onto NOAA Tups
 ## Define a lambda function to grab just the first element for comparisons
