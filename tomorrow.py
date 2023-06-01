@@ -68,11 +68,11 @@ def getSunMoonData():
     sunMoon=json.loads(sunMoon)
     return sunMoon
 
-def generateSunMoonTuples():
+def generateSunMoonTuples(verbose=False):
     sunsets, sunrises, moonsets, moonrises = [], [], [], []
 
     sunMoon = getSunMoonData()
-    print(sunMoon)
+    if verbose: print(sunMoon)
 
     tmp = datetime.strptime(sunMoon['data']['timelines'][0]['intervals'][0]['startTime'], "%Y-%m-%dT%H:%M:%S%z")
     offset = tmp.utcoffset().total_seconds()/3600.
@@ -98,7 +98,7 @@ def generateSunMoonTuples():
             moonrises.append((hour_rounder(moonriseTime).strftime("%Y%m%dT%H%M %a"),"mr({}){}".format(moonPhase[values['moonPhase']],moonriseTime.strftime("%H%M"))))    
         except AttributeError:
             pass
-
+    if verbose: print("Sunsets\n",sunsets,"\nSunrises\n", sunrises, "\nMoonsets\n", moonsets, "Moonrises", moonrises)
     return sunsets, sunrises, moonsets, moonrises
 
 def getCloudCoverData():
@@ -138,14 +138,16 @@ def getCloudCoverData():
     cloudCov=json.loads(cloudCov)
     return cloudCov
 
-def generateCloudCoverTuples():
+def generateCloudCoverTuples(verbose=False):
     cCovTups = []
     
     cloudCov = getCloudCoverData()
-    print(cloudCov)
+    if verbose: print(cloudCov)
 
     for elem in cloudCov['data']['timelines'][0]['intervals']:
         startTime = datetime.strptime(elem['startTime'], "%Y-%m-%dT%H:%M:%S%z").strftime("%Y%m%dT%H%M %a")
         cCovPercentage = int(elem['values']['cloudCover'])
         cCovTups.append((startTime, "tCC:{:03d}".format(cCovPercentage)))
+
+    if verbose: print(cCovTups)
     return cCovTups
