@@ -216,9 +216,9 @@ class Day:
                     return datetime.strptime(self.date.strftime("%Y%m%dT")+d[4][2:], "%Y%m%dT%H%M")
         return None
 
-
-wc = WeatherCompiler()
-print(wc.getSummary())
-print()
-print(wc.getDetails())
+if __name__ == "__main__":
+    wc = WeatherCompiler()
+    print(wc.getSummary())
+    print()
+    print(wc.getDetails())
 
