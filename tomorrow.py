@@ -30,20 +30,20 @@ def hour_rounder(t):
                +timedelta(hours=t.minute//30))
 
 
-def getSunMoonData():
+def getSunMoonData(verbose=False):
     try:
-        print("Want to see if sunMoon file exists")
+        if verbose: print("Want to see if sunMoon file exists")
         with open(sunMoonFile, 'r') as f:
             lastWritten = f.read(13)
-            print("File exists, found last write date as", lastWritten)
+            if verbose: print("File exists, found last write date as", lastWritten)
             if (datetime.now() - timedelta(hours=3)) < datetime.strptime(lastWritten, "%Y%m%dT%H%M"):
                 #The file is NEW
                 sunMoon=json.loads(f.read())
                 return sunMoon
-            print("File found, but too old, generating new one")
+            if verbose: print("File found, but too old, generating new one")
 
     except FileNotFoundError:
-        print("Could not find file")
+        if verbose: print("Could not find file")
         pass
 
 
@@ -64,6 +64,7 @@ def getSunMoonData():
     with open(sunMoonFile, 'w') as f:
         f.write(datetime.now().strftime("%Y%m%dT%H%M"))
         f.write(sunMoon)
+        if verbose: print("Got API data, wrote to file.")
 
     sunMoon=json.loads(sunMoon)
     return sunMoon
@@ -71,8 +72,8 @@ def getSunMoonData():
 def generateSunMoonTuples(verbose=False):
     sunsets, sunrises, moonsets, moonrises = [], [], [], []
 
-    sunMoon = getSunMoonData()
-    if verbose: print(sunMoon)
+    sunMoon = getSunMoonData(verbose=verbose)
+    if verbose: print("Tomorrow API Raw SunMoon Data\n",sunMoon)
 
     tmp = datetime.strptime(sunMoon['data']['timelines'][0]['intervals'][0]['startTime'], "%Y-%m-%dT%H:%M:%S%z")
     offset = tmp.utcoffset().total_seconds()/3600.
@@ -101,19 +102,19 @@ def generateSunMoonTuples(verbose=False):
     if verbose: print("Sunsets\n",sunsets,"\nSunrises\n", sunrises, "\nMoonsets\n", moonsets, "Moonrises", moonrises)
     return sunsets, sunrises, moonsets, moonrises
 
-def getCloudCoverData():
+def getCloudCoverData(verbose=False):
     try:
-        print("Want to see if cloudCover file exists")
+        if verbose: print("Want to see if cloudCover file exists")
         with open(cloudCoverFile, 'r') as f:
             lastWritten = f.read(13)
-            print("File exists, found last write date as", lastWritten)
+            if verbose: print("File exists, found last write date as", lastWritten)
             if (datetime.now() - timedelta(hours=3)) < datetime.strptime(lastWritten, "%Y%m%dT%H%M"):
                 #The file is NEW
                 cloudCov=json.loads(f.read())
                 return cloudCov
-            print("File found, but too old, generating new one")
+            if verbose: print("File found, but too old, generating new one")
     except FileNotFoundError:
-        print("Could not find file")
+        if verbose: print("Could not find file")
         pass
 
 
@@ -134,6 +135,7 @@ def getCloudCoverData():
     with open(cloudCoverFile, 'w') as f:
         f.write(datetime.now().strftime("%Y%m%dT%H%M"))
         f.write(cloudCov)
+        if verbose: print("Got API data, wrote to file.")
 
     cloudCov=json.loads(cloudCov)
     return cloudCov
@@ -141,13 +143,13 @@ def getCloudCoverData():
 def generateCloudCoverTuples(verbose=False):
     cCovTups = []
     
-    cloudCov = getCloudCoverData()
-    if verbose: print(cloudCov)
+    cloudCov = getCloudCoverData(verbose=verbose)
+    if verbose: print("Tomorrow API Raw Cloud Coverage\n",cloudCov)
 
     for elem in cloudCov['data']['timelines'][0]['intervals']:
         startTime = datetime.strptime(elem['startTime'], "%Y-%m-%dT%H:%M:%S%z").strftime("%Y%m%dT%H%M %a")
         cCovPercentage = int(elem['values']['cloudCover'])
         cCovTups.append((startTime, "tCC:{:03d}".format(cCovPercentage)))
 
-    if verbose: print(cCovTups)
+    if verbose: print("Tomorrow Cloud Coverage Tuples\n",cCovTups)
     return cCovTups
