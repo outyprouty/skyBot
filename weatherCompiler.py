@@ -114,20 +114,21 @@ class WeatherCompiler:
             days.append(Day(uDay, tmp))
         self.days = days
 
-    def getDetails(self):
-        detailStr = ""
+    def getDetails(self, goodOnly=True):
+        detailStr = "Details\nScore HHMM NOAACC TomorrowCC\n"
         for day in self.days[:self.outlook]:
             detailStr += day.date.strftime("%a %Y%m%d") + "\n"
             for d in day.dayLines:
                 if float(d[0]) == -1.0:
-                    continue
-                detailStr += "  Score {:04.2f} {} Avg CCov: {:03d} % \n".format(\
+                    continue 
+                if float(d[0]) >= (self.thresh if goodOnly else 0.0):
+                    detailStr += "  {:04.2f} {} {}% {}% \n".format(\
                     float(d[0]), datetime.strptime(d[1], "%Y%m%dT%H%M %a").strftime("%H:00"), \
-                    int(0.5*(float(d[2].split(':')[1]) + float(d[3].split(':')[1]))))
+                    d[2].split(':')[1], d[3].split(':')[1])
         return detailStr
     
     def getSummary(self):
-        summaryStr = ""
+        summaryStr = "{}-Day Summary\n".format(self.outlook)
         for day in self.days[:self.outlook]:
             sunrise = "Not in range" if day.sunrise == None else day.sunrise.strftime("%H%M") 
             sunset = "Not in range" if day.sunset == None else day.sunset.strftime("%H%M") 
@@ -136,13 +137,12 @@ class WeatherCompiler:
             moonset = "Not in range" if day.moonset == None else day.moonset.strftime("%H%M") 
             
             summaryStr += \
-"""
-{}
+"""{}
 Sunrise: {}
 Sunset: {}
 Moonrise: {} ({})
 Moonset: {}
-Number of Dark Hrs Before/After Sunrise/set: {}/{}
+Number of Clear Hrs Before/After Sunrise/set: {}/{}
 \n""".format(day.date.strftime("%a %Y%m%d"), sunrise, sunset, moonrise, moonphase, moonset, *self.getDarkHrs(day))
         return summaryStr
     
@@ -162,20 +162,16 @@ Number of Dark Hrs Before/After Sunrise/set: {}/{}
         return beforeSR, afterSS
     def getHelp(self):
         return """
-General: `skyBot` uses NOAA and TomorrowAPI to gather some sky data and 
-    organize it for 'easy' viewing.
+General: `skyBot` uses NOAA and TomorrowAPI to gather some sky data and organize it for 'easy' viewing.
 
-Usage: `skyBot summary | details | help`
+Usage: `skyBot summary | details | obstimes | help`
 
-`summary`: Gives three-day sun/moon information along with estimates of
-    number of hours before and after sunset with clear skies
-`details`: Gives three-day 'score' (see below) for each hour along with averge of
-    NOAA and Tomorrow API cloud cover forecast.
-
-What does 'clear' mean? NOAA and Tomorrow API agree forecast less 
-    than 30\% cloud cover while dark over a three-hour rolling window
-    centered on the hour in question.
-"""
+`summary`: Gives three-day sun/moon information along with estimates of number of hours before and after sunset with clear skies
+`details`: Gives three-day 'score' (see below) for each hour along with average of NOAA and Tomorrow API cloud cover forecast.
+`obstimes`: Same as details, but only for hours with scores above a certain threshold, currently set to {:0.2f}
+What does 'clear' mean? NOAA and Tomorrow API agree forecast less than 30\% cloud cover over a three-hour rolling window centered on the hour in question.
+The time of day along with the cloud cover calculation above are bundled together into a score ranging from 0 to 1 with 1 being the best score.
+""".format(self.thresh)
 
 
 class Day:

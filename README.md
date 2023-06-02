@@ -4,6 +4,7 @@
 Any implementation should store the following in a .env file colocated with runtime.
 - the Discord bot token as "discordToken" 
 - the Tomorrow API Key as "tomorrowAPIKey"
+TODO: Roy can distill more of the random 
 
 # tomorrow API
 Needed to get API token
