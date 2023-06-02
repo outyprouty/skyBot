@@ -148,14 +148,15 @@ Number of Clear Hrs Before/After Sunrise/set: {}/{}
     
     def getDarkHrs(self, day):
         beforeSR, afterSS = 0, 0
-        if day.sunrise == None: beforeSR = -1
-        if day.sunset == None: afterSS = -1
+        notAvail = "N/A"
+        if day.sunrise == None: beforeSR = notAvail
+        if day.sunset == None: afterSS = notAvail
         for d in day.dayLines:
             if float(d[0]) > self.thresh:
-                if beforeSR != -1: 
+                if beforeSR != notAvail: 
                     if datetime.strptime(d[1], "%Y%m%dT%H%M %a").hour <= day.sunrise.hour: 
                         beforeSR += 1
-                if afterSS != -1: 
+                if afterSS != notAvail: 
                     if datetime.strptime(d[1], "%Y%m%dT%H%M %a").hour >= day.sunset.hour: 
                         afterSS += 1
 
