@@ -1,5 +1,18 @@
 # skyBot
 
+General: `skyBot` uses NOAA and TomorrowAPI to gather some sky data and organize it for 'easy' viewing.
+
+Usage as discord bot: `skyBot summary | details | obstimes | help`
+
+`summary`: Gives three-day sun/moon information along with estimates of number of hours before and after sunset with clear skies
+`details`: Gives three-day 'score' (see below) for each hour along with average of NOAA and Tomorrow API cloud cover forecast.
+`obstimes`: Same as details, but only for hours with scores above a certain threshold, currently set to {:0.2f}
+What does 'clear' mean? NOAA and Tomorrow API agree forecast less than 30\% cloud cover over a three-hour rolling window centered on the hour in question.
+The time of day along with the cloud cover calculation above are bundled together into a score ranging from 0 to 1 with 1 being the best score.
+
+
+
+
 # dotenv file
 Any implementation should store the following in a .env file colocated with runtime.
 - the Discord bot token as "discordToken" 
