@@ -115,7 +115,8 @@ class WeatherCompiler:
         self.days = days
 
     def getDetails(self, goodOnly=True):
-        detailStr = "Details\nScore HHMM NOAACC TomorrowCC\n"
+        detailStr = "Observation Times" if goodOnly else "Details"
+        detailStr += "\nScore HHMM NOAACC TomorrowCC\n"
         for day in self.days[:self.outlook]:
             detailStr += day.date.strftime("%a %Y%m%d") + "\n"
             for d in day.dayLines:
