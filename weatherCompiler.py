@@ -142,7 +142,9 @@ Sunrise: {}
 Sunset: {}
 Moonrise: {} ({})
 Moonset: {}
-Number of Clear Hrs Before/After Sunrise/set: {}/{}
+Number of Clear Hrs Before Sunriset: {}
+Number of Clear Hrs After Sunset: {}
+
 \n""".format(day.date.strftime("%a %Y%m%d"), sunrise, sunset, moonrise, moonphase, moonset, *self.getDarkHrs(day))
         return summaryStr
     
