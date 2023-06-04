@@ -3,9 +3,10 @@ import os
 from datetime import datetime, timedelta
 
 
-
 def generateNOAATuples(verbose=False):
-    url = "https://forecast.weather.gov/MapClick.php?lat=39.2906&lon=-76.6093&FcstType=digitalDWML"
+    #url = "https://forecast.weather.gov/MapClick.php?lat=39.2906&lon=-76.6093&FcstType=digitalDWML"
+    url = "https://forecast.weather.gov/MapClick.php?lat={:0.4f}&lon={:0.4f}&FcstType=digitalDWML".format(float(os.getenv("LAT")), float(os.getenv("LON")))
+    print(url)
 
     os.system("curl \"{}\" > noaa.xml 2> /dev/null".format(url))
 
