@@ -24,6 +24,8 @@ class MyClient(discord.Client):
         if message.author == self.user:
             return
 
+        if message.content == 'skyBot ping':
+            await message.channel.send("O lord, he runnin on {}".format(os.uname()[1]))
         if message.content == 'skyBot summary':
             wc = WeatherCompiler()
             await message.channel.send(wc.getSummary())
