@@ -22,9 +22,10 @@ Needed to get API token
 Setup a location UMBC Observatory and grabbed ID for the queries
 
 # Requirements
-discord
+discord.py
 xmltodict (or write your own parser)
 python-dotenv (for dotenv)
+apscheduler
 
 # Non-git changelog
 Make bot
@@ -43,4 +44,6 @@ python3 -c "import discord"
 ```
 9. Bot needed Privileged Gateway Intents in developer settings online
 
-
+# Putting bot on VM
+VM running RHEL7, so installed python3 and required packages
+Make venv: python3(.8) -m venv skyBotENV
