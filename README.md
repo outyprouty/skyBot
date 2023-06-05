@@ -11,8 +11,6 @@ What does 'clear' mean? NOAA and Tomorrow API agree forecast less than 30\% clou
 The time of day along with the cloud cover calculation above are bundled together into a score ranging from 0 to 1 with 1 being the best score.
 
 
-
-
 # dotenv file
 Any implementation should store the following in a .env file colocated with runtime.
 - the Discord bot token as "discordToken" 

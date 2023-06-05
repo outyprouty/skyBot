@@ -1,16 +1,16 @@
 import discord
-from discord.ext import commands
+
 import dotenv, os
 from weatherCompiler import WeatherCompiler
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron import CronTrigger
-import aiocron
 
 dotenv.load_dotenv()
 
 class MyClient(discord.Client):
     async def on_ready(self):
         print('Logged on as', self.user)
+
         #initializing scheduler
         scheduler = AsyncIOScheduler()
 

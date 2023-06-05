@@ -1,10 +1,8 @@
-import xmltodict, requests
+import requests
 from datetime import datetime
-import dotenv, os
+import os
 from datetime import datetime, timedelta
 import json
-import pytz
-import sys
 
 # ripped from https://docs.tomorrow.io/reference/data-layers-core
 moonPhase = \
