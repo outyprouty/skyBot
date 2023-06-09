@@ -1,6 +1,6 @@
 import xmltodict
 import os
-from datetime import datetime, timedelta
+from datetime import datetime
 
 
 def generateNOAATuples(verbose=False):
