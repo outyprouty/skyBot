@@ -17,7 +17,7 @@ class WeatherCompiler:
         N = 2
 
         #score threshold
-        self.thresh = 0.3
+        self.thresh = 0.75
 
         #number of days out to report on
         self.outlook = 3
