@@ -48,7 +48,7 @@ python3 -c "import discord"
 
 # Putting bot on VM
 (notes for Roy)
-roy.obs.umbc.edu
+roy.obs.umbc.edu (subnet24, .215)
 user proutyr1
 password in LP
 screen -R skyBot
