@@ -40,7 +40,7 @@ class MyClient(discord.Client):
             await message.channel.send(wc.getHelp())
 
     async def postSummary(self):
-        c = self.get_channel(1113948193173020703)
+        c = self.get_channel(1022222495559983204)
         wc = WeatherCompiler()
         await c.send(wc.getSummary())
 

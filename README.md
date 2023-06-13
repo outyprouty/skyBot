@@ -10,7 +10,6 @@ Usage as discord bot: `skyBot summary | details | obstimes | help`
 What does 'clear' mean? NOAA and Tomorrow API agree forecast less than 30\% cloud cover over a three-hour rolling window centered on the hour in question.
 The time of day along with the cloud cover calculation above are bundled together into a score ranging from 0 to 1 with 1 being the best score.
 
-
 # dotenv file
 Any implementation should store the following in a .env file colocated with runtime.
 - the Discord bot token as "discordToken" 
@@ -26,6 +25,7 @@ discord.py
 xmltodict (or write your own parser)
 python-dotenv (for dotenv)
 apscheduler
+requests
 
 # Non-git changelog
 Make bot
@@ -45,5 +45,10 @@ python3 -c "import discord"
 9. Bot needed Privileged Gateway Intents in developer settings online
 
 # Putting bot on VM
-VM running RHEL7, so installed python3 and required packages
-Make venv: python3(.8) -m venv skyBotENV
+roy.obs.umbc.edu
+user proutyr1
+password in LP
+screen -R skyBot
+pythonEnvs/skyBotEnv
+
+
