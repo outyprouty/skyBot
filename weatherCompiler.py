@@ -166,6 +166,7 @@ Number of Clear Hrs After Sunset: {}
         return beforeSR, afterSS
     def getHelp(self):
         return """
+git: https://github.com/outyprouty/skyBot
 General: `skyBot` uses NOAA and TomorrowAPI to gather some sky data and organize it for 'easy' viewing.
 
 Usage: `skyBot summary | details | obstimes | help`
